@@ -15,6 +15,8 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
   const FOLLOW_IMAGE = 'https://lraffou.github.io/akiraffou-overlays/follow-luffy.gif';
   const SUB_IMAGE = 'https://lraffou.github.io/akiraffou-overlays/sub-luffy.webp';
   const subPreload = new Image(); subPreload.src = SUB_IMAGE;
+  const RAID_IMAGE = 'https://lraffou.github.io/akiraffou-overlays/raid-luffy.gif';
+  const raidPreload = new Image(); raidPreload.src = RAID_IMAGE;
   const queue = [];
   let busy = false, duration = 5000, soundEnabled = true, volume = .08, audio;
   let endTimer, hideTimer, nextTimer;
@@ -22,6 +24,10 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
   const flag = value => value === true || value === 'true' || value === 1;
   const count = value => Number.isFinite(Number(value)) ? Math.max(1, Math.min(9999, Math.floor(Number(value)))) : 1;
   const follow = name => ({name, label:'NOUVEAU FOLLOW', lead:'Bienvenue', note:'Prends ta place, on est bien ici.', image:FOLLOW_IMAGE});
+  function raid(event) {
+    const viewers = Number.isFinite(Number(event.amount)) ? Math.max(1, Math.floor(Number(event.amount))) : 1;
+    return {name:event.name || event.displayName, label:'RAID', lead:'Bienvenue', note:viewers === 1 ? '1 personne débarque. Bienvenue à toi !' : `${viewers} personnes débarquent. Bienvenue à tous !`, image:RAID_IMAGE};
+  }
   function subscriber(event) {
     if (flag(event.bulkGifted)) {
       const amount = count(event.amount);
@@ -100,7 +106,9 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
     const detail = obj.detail || {}, event = detail.event || {};
     if (detail.listener === 'follower-latest') enqueue(follow(event.name || event.displayName));
     if (detail.listener === 'subscriber-latest') enqueue(subscriber(event));
+    if (detail.listener === 'raid-latest') enqueue(raid(event));
     if (detail.listener === 'widget-button') {
+      if (event.field === 'testRaid') enqueue(raid({name:'Raideur',amount:40}));
       if (event.field === 'testFollow') enqueue(follow('NouveauViewer'));
       if (event.field === 'testSub') enqueue(subscriber({name:'NouveauSub',amount:1}));
       if (event.field === 'testResub') enqueue(subscriber({name:'FideleViewer',amount:12}));
