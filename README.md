@@ -26,6 +26,13 @@ Source Navigateur OBS : 1920 × 1080. Écran « Je reviens », avec les mêmes a
 URL : https://lraffou.github.io/akiraffou-overlays/end.html
 
 Source Navigateur OBS : 1920 × 1080. Écran « Merci à tous », avec les mêmes animations et le glitch discret que les autres scènes. L’overlay réseaux horizontal existant est intégré en bas à gauche. Aucun son ni compte à rebours automatique.
+## Alerte follow
+
+Aperçu : https://lraffou.github.io/akiraffou-overlays/follow-preview.html
+
+Carte flottante noir bleuté, bordure corail, glitch bref, pseudo du nouveau follower et petit son de bienvenue. Durée par défaut : 5 secondes. Les follows successifs s’affichent l’un après l’autre.
+
+L’alerte réelle est installée dans StreamElements, overlay « Akiraffou — Alerte follow ». Ajouter son URL StreamElements à une source Navigateur OBS en 1920 × 1080. L’aperçu GitHub Pages est une démonstration en boucle : il ne reçoit pas les follows Twitch. Durée et son sont réglables dans StreamElements.
 ## Liens OBS après le renommage
 
 Ce dépôt s’appelait auparavant `akiraffou-webcam`. Utiliser désormais les nouvelles URL ci-dessus dans les sources Navigateur OBS.
