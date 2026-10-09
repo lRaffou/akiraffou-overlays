@@ -1,6 +1,6 @@
 # Akiraffou — overlays OBS
 
-Dépôt public des overlays prêts à utiliser dans OBS : cadre webcam animé et écran de début, dans le style corail et noir bleuté de la chaîne.
+Dépôt public des overlays prêts à utiliser dans OBS : cadre webcam animé, écran de début et écran de pause, dans le style corail et noir bleuté de la chaîne.
 
 Les maquettes et captures de référence sont conservées séparément dans le dépôt privé `akiraffou-stream-style`.
 
@@ -16,6 +16,11 @@ URL : https://lraffou.github.io/akiraffou-overlays/start.html
 
 Source Navigateur OBS : 1920 × 1080. Fond plein écran noir bleuté, titres corail, animation d’attente et glitch discret. L’overlay réseaux horizontal existant est intégré en bas à gauche. Ne pas ajouter une deuxième copie des réseaux sur cette scène. Aucun compte à rebours automatique.
 
+## Écran de pause
+
+URL : https://lraffou.github.io/akiraffou-overlays/pause.html
+
+Source Navigateur OBS : 1920 × 1080. Écran « Je reviens », avec les mêmes animations et le glitch discret que l’écran de début. L’overlay réseaux horizontal existant est intégré en bas à gauche. Aucun compte à rebours automatique.
 ## Liens OBS après le renommage
 
-Ce dépôt s’appelait auparavant `akiraffou-webcam`. Utiliser désormais les deux nouvelles URL ci-dessus dans les sources Navigateur OBS.
+Ce dépôt s’appelait auparavant `akiraffou-webcam`. Utiliser désormais les nouvelles URL ci-dessus dans les sources Navigateur OBS.
