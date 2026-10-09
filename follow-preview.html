@@ -72,6 +72,7 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
     leadNode.textContent = alert.lead;
     noteNode.textContent = alert.note;
     if (imageNode.getAttribute('src') !== alert.image) imageNode.src = alert.image;
+    imageNode.style.objectPosition = alert.image === RAID_IMAGE ? '50% 60%' : '50% 10%';
     card.style.setProperty('--duration', `${duration}ms`);
     card.classList.remove('is-leaving');
     card.setAttribute('aria-hidden', 'false');
