@@ -1,18 +1,15 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Akiraffou — cadre webcam OBS</title><style>/* Coral and angular details from the existing horizontal overlay. */
-@property --frame-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
 .webcam-frame{position:relative;width:100%;height:100%;pointer-events:none;isolation:isolate;overflow:hidden}
 .webcam-frame::before{content:'';position:absolute;inset:0;border:1px solid #ff405b70;border-left:3px solid #ff405b;border-bottom:2px solid #ff405b;box-shadow:inset 0 0 0 1px #09121b;z-index:2}
 .webcam-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(#ff405b,#ff405b) 16px 0/56px 2px no-repeat,linear-gradient(#ff405b,#ff405b) calc(100% - 15px) 100%/32px 2px no-repeat;z-index:3;animation:frame-accents 8s ease-in-out infinite}
-.webcam-sweep{position:absolute;inset:0;padding:3px;z-index:4;background:conic-gradient(from var(--frame-angle),transparent 0deg 265deg,#ff405b30 295deg,#ff405b90 325deg,#ff405b 342deg,transparent 355deg);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:frame-sweep 10s linear infinite}
 .webcam-corner{position:absolute;right:0;top:0;width:11px;height:11px;background:#ff405b;clip-path:polygon(0 0,100% 0,100% 100%);z-index:5;animation:frame-corner 4s ease-in-out infinite}
-@keyframes frame-sweep{to{--frame-angle:360deg}}
 @keyframes frame-accents{0%,100%{background-position:16px 0,calc(100% - 15px) 100%;opacity:.6}50%{background-position:calc(100% - 72px) 0,15px 100%;opacity:1}}
 @keyframes frame-corner{0%,100%{opacity:.55}50%{opacity:1}}
-@media(prefers-reduced-motion:reduce){.webcam-frame::after,.webcam-sweep,.webcam-corner{animation:none}.webcam-sweep{display:none}}
+@media(prefers-reduced-motion:reduce){.webcam-frame::after,.webcam-corner{animation:none}}
 /* Brief glitch bursts confined to the frame edges. */
 .webcam-glitch{position:absolute;inset:0;z-index:6;padding:3px;opacity:0;background:linear-gradient(90deg,#25f4ee,transparent 35%,#ff405b 65%,#ff405b);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:frame-glitch 11s steps(1,end) infinite}
 .webcam-glitch::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 14px,#09121b 14px 17px)}
 @keyframes frame-glitch{0%,76%,79%,100%{opacity:0;transform:none;clip-path:inset(0)}76.2%{opacity:.8;transform:translateX(2px);clip-path:inset(12% 0 64%)}76.8%{opacity:.65;transform:translateX(-2px);clip-path:inset(68% 0 8%)}77.3%{opacity:0;transform:none}78%{opacity:.8;transform:translateY(1px);clip-path:inset(0 0 94%)}78.5%{opacity:.6;transform:translateX(-1px);clip-path:inset(92% 0 0)}}
 @media(prefers-reduced-motion:reduce){.webcam-glitch{animation:none;display:none}}
-</style><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent}</style></head><body><div class="webcam-frame" aria-label="Cadre webcam Akiraffou"><span class="webcam-glitch" aria-hidden="true"></span><span class="webcam-sweep" aria-hidden="true"></span><span class="webcam-corner" aria-hidden="true"></span></div></body></html>
+</style><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:transparent}</style></head><body><div class="webcam-frame" aria-label="Cadre webcam Akiraffou"><span class="webcam-glitch" aria-hidden="true"></span><span class="webcam-corner" aria-hidden="true"></span></div></body></html>
