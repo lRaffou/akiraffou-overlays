@@ -19,6 +19,8 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
   const raidPreload = new Image(); raidPreload.src = RAID_IMAGE;
   const TIP_IMAGE = 'https://lraffou.github.io/akiraffou-overlays/tip-nami.gif';
   const tipPreload = new Image(); tipPreload.src = TIP_IMAGE;
+  const CHEER_IMAGE = 'https://lraffou.github.io/akiraffou-overlays/cheer-roger.gif';
+  const cheerPreload = new Image(); cheerPreload.src = CHEER_IMAGE;
   let currencyCode = 'EUR';
   const queue = [];
   let busy = false, duration = 5000, soundEnabled = true, volume = .08, audio;
@@ -27,6 +29,12 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
   const flag = value => value === true || value === 'true' || value === 1;
   const count = value => Number.isFinite(Number(value)) ? Math.max(1, Math.min(9999, Math.floor(Number(value)))) : 1;
   const follow = name => ({name, label:'NOUVEAU FOLLOW', lead:'Bienvenue', note:'Prends ta place, on est bien ici.', image:FOLLOW_IMAGE});
+  function cheer(event) {
+    const bits = Number(event.amount);
+    if (!Number.isSafeInteger(bits) || bits <= 0) return null;
+    const formatted = new Intl.NumberFormat('fr-FR').format(bits);
+    return {name:clean(event.name || event.displayName) || 'Anonyme', label:'CHEER', lead:`Merci pour ${formatted} ${bits === 1 ? 'Bit' : 'Bits'}`, note:'Merci pour le soutien !', image:CHEER_IMAGE};
+  }
   function tip(event) {
     const amount = Number(event.amount);
     if (!Number.isFinite(amount) || amount <= 0 || amount > Number.MAX_SAFE_INTEGER) return null;
@@ -81,7 +89,7 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
     leadNode.textContent = alert.lead;
     noteNode.textContent = alert.note;
     if (imageNode.getAttribute('src') !== alert.image) imageNode.src = alert.image;
-    imageNode.style.objectPosition = alert.image === RAID_IMAGE ? '50% 60%' : alert.image === TIP_IMAGE ? '50% 40%' : '50% 10%';
+    imageNode.style.objectPosition = alert.image === RAID_IMAGE ? '50% 60%' : alert.image === TIP_IMAGE ? '50% 40%' : alert.image === CHEER_IMAGE ? '50% 50%' : '50% 10%';
     card.style.setProperty('--duration', `${duration}ms`);
     card.classList.remove('is-leaving');
     card.setAttribute('aria-hidden', 'false');
@@ -120,7 +128,9 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
     if (detail.listener === 'subscriber-latest') enqueue(subscriber(event));
     if (detail.listener === 'raid-latest') enqueue(raid(event));
     if (detail.listener === 'tip-latest') enqueue(tip(event));
+    if (detail.listener === 'cheer-latest') enqueue(cheer(event));
     if (detail.listener === 'widget-button') {
+      if (event.field === 'testCheer') enqueue(cheer({name:'SuperViewer',amount:100}));
       if (event.field === 'testTip') enqueue(tip({name:'Donateur',amount:10}));
       if (event.field === 'testRaid') enqueue(raid({name:'Raideur',amount:40}));
       if (event.field === 'testFollow') enqueue(follow('NouveauViewer'));

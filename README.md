@@ -50,6 +50,11 @@ GIF animé de Luffy fourni pour les raids, en fond sur toute la carte. Pseudo du
 Aperçu : https://lraffou.github.io/akiraffou-overlays/tip-preview.html
 
 GIF animé de Nami en fond sur toute la carte. Pseudo et montant du don, avec la devise du compte StreamElements (EUR par défaut). Même source « Akiraffou — Alertes » : garder la même URL OBS. Bouton « Tester un tip » dans les réglages Alertes du widget.
+## Alerte cheer (Bits)
+
+Aperçu : https://lraffou.github.io/akiraffou-overlays/cheer-preview.html
+
+GIF fourni en fond sur toute la carte, pseudo et nombre de Bits. Même source StreamElements « Akiraffou — Alertes » : garder la même URL OBS. Les cheers rejoignent la file commune. Bouton « Tester un cheer » dans les réglages Alertes du widget.
 ## Liens OBS après le renommage
 
 Ce dépôt s’appelait auparavant `akiraffou-webcam`. Utiliser désormais les nouvelles URL ci-dessus dans les sources Navigateur OBS.
