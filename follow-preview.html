@@ -17,6 +17,9 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
   const subPreload = new Image(); subPreload.src = SUB_IMAGE;
   const RAID_IMAGE = 'https://lraffou.github.io/akiraffou-overlays/raid-luffy.gif';
   const raidPreload = new Image(); raidPreload.src = RAID_IMAGE;
+  const TIP_IMAGE = 'https://lraffou.github.io/akiraffou-overlays/tip-nami.gif';
+  const tipPreload = new Image(); tipPreload.src = TIP_IMAGE;
+  let currencyCode = 'EUR';
   const queue = [];
   let busy = false, duration = 5000, soundEnabled = true, volume = .08, audio;
   let endTimer, hideTimer, nextTimer;
@@ -24,6 +27,12 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
   const flag = value => value === true || value === 'true' || value === 1;
   const count = value => Number.isFinite(Number(value)) ? Math.max(1, Math.min(9999, Math.floor(Number(value)))) : 1;
   const follow = name => ({name, label:'NOUVEAU FOLLOW', lead:'Bienvenue', note:'Prends ta place, on est bien ici.', image:FOLLOW_IMAGE});
+  function tip(event) {
+    const amount = Number(event.amount);
+    if (!Number.isFinite(amount) || amount <= 0 || amount > Number.MAX_SAFE_INTEGER) return null;
+    const formatted = new Intl.NumberFormat('fr-FR', {style:'currency', currency:currencyCode, minimumFractionDigits:2, maximumFractionDigits:2}).format(amount);
+    return {name:clean(event.name || event.displayName) || 'Anonyme', label:'NOUVEAU TIP', lead:`Merci pour ${formatted}`, note:'Ça fait plaisir, merci !', image:TIP_IMAGE};
+  }
   function raid(event) {
     const viewers = Number.isFinite(Number(event.amount)) ? Math.max(1, Math.floor(Number(event.amount))) : 1;
     return {name:event.name || event.displayName, label:'RAID', lead:'Bienvenue', note:viewers === 1 ? '1 personne débarque. Bienvenue à toi !' : `${viewers} personnes débarquent. Bienvenue à tous !`, image:RAID_IMAGE};
@@ -72,7 +81,7 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
     leadNode.textContent = alert.lead;
     noteNode.textContent = alert.note;
     if (imageNode.getAttribute('src') !== alert.image) imageNode.src = alert.image;
-    imageNode.style.objectPosition = alert.image === RAID_IMAGE ? '50% 60%' : '50% 10%';
+    imageNode.style.objectPosition = alert.image === RAID_IMAGE ? '50% 60%' : alert.image === TIP_IMAGE ? '50% 40%' : '50% 10%';
     card.style.setProperty('--duration', `${duration}ms`);
     card.classList.remove('is-leaving');
     card.setAttribute('aria-hidden', 'false');
@@ -94,6 +103,8 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
   }
   window.addEventListener('onWidgetLoad', obj => {
     const fields = obj.detail?.fieldData || {};
+    const code = String(obj.detail?.currency?.code || 'EUR').toUpperCase();
+    currencyCode = /^[A-Z]{3}$/.test(code) ? code : 'EUR';
     const seconds = Number(fields.durationSeconds ?? 5), level = Number(fields.soundVolume ?? 8);
     duration = (Number.isFinite(seconds) ? Math.max(3, Math.min(15, seconds)) : 5) * 1000;
     volume = (Number.isFinite(level) ? Math.max(0, Math.min(30, level)) : 8) / 100;
@@ -108,7 +119,9 @@ body{background:radial-gradient(ellipse at 70% 55%,#1c202a,#09121b 70%);display:
     if (detail.listener === 'follower-latest') enqueue(follow(event.name || event.displayName));
     if (detail.listener === 'subscriber-latest') enqueue(subscriber(event));
     if (detail.listener === 'raid-latest') enqueue(raid(event));
+    if (detail.listener === 'tip-latest') enqueue(tip(event));
     if (detail.listener === 'widget-button') {
+      if (event.field === 'testTip') enqueue(tip({name:'Donateur',amount:10}));
       if (event.field === 'testRaid') enqueue(raid({name:'Raideur',amount:40}));
       if (event.field === 'testFollow') enqueue(follow('NouveauViewer'));
       if (event.field === 'testSub') enqueue(subscriber({name:'NouveauSub',amount:1}));

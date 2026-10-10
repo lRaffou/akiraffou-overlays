@@ -45,6 +45,11 @@ Les follows et subs partagent la même source StreamElements « Akiraffou — Al
 Aperçu : https://lraffou.github.io/akiraffou-overlays/raid-preview.html
 
 GIF animé de Luffy fourni pour les raids, en fond sur toute la carte. Pseudo du raideur et nombre de personnes accueillies. Même source StreamElements « Akiraffou — Alertes » : conserver la même URL OBS en 1920 × 1080. Bouton « Tester un raid » dans les réglages Alertes du widget.
+## Alerte tip
+
+Aperçu : https://lraffou.github.io/akiraffou-overlays/tip-preview.html
+
+GIF animé de Nami en fond sur toute la carte. Pseudo et montant du don, avec la devise du compte StreamElements (EUR par défaut). Même source « Akiraffou — Alertes » : garder la même URL OBS. Bouton « Tester un tip » dans les réglages Alertes du widget.
 ## Liens OBS après le renommage
 
 Ce dépôt s’appelait auparavant `akiraffou-webcam`. Utiliser désormais les nouvelles URL ci-dessus dans les sources Navigateur OBS.
